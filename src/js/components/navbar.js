@@ -4,10 +4,7 @@ export function initNavbar() {
     const iconOpen = document.getElementById("menu-icon-open");
     const iconClose = document.getElementById("menu-icon-close");
 
-    if (!menuBtn || !menu || !iconOpen || !iconClose) {
-        console.warn("عناصر navbar پیدا نشدن — احتمالاً loadLayout هنوز اجرا نشده");
-        return;
-    }
+    if (!menuBtn || !menu || !iconOpen || !iconClose) {return;}
 
     menuBtn.addEventListener("click", () => {
         const isOpen = menu.classList.toggle("flex");
