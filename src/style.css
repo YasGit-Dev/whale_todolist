@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+@theme {
+  --color-orca-50:  #e2e0da;
+  --color-orca-100: #ebf0f4;
+  --color-orca-200: #d5dce3;
+  --color-orca-300: #b2b7bd;
+  --color-orca-400: #9ca3ab;
+  --color-orca-500: #8a939c;
+  --color-orca-600: #7d8288;
+  --color-orca-700: #6f7279;
+  --color-orca-800: #51545b;
+  --color-orca-900: #40474f;
+  --color-orca-950: #3b3e43;
+
+  --color-orca-blue-50:  #cad4e0;
+  --color-orca-blue-100: #c5ccd5;
+  --color-orca-blue-200: #b1c5dc;
+  --color-orca-blue-300: #a7b6c9;
+  --color-orca-blue-400: #9dacbf;
+  --color-orca-blue-500: #8ea0b7;
+  --color-orca-blue-600: #8696ad;
+  --color-orca-blue-700: #798ead;
+  --color-orca-blue-800: #71829e;
+  --color-orca-blue-900: #637a9a;
+  --color-orca-blue-950:#445976;
+
+  --color-orca-navy-50:  #616c7e;
+  --color-orca-navy-100: #5e687a;
+  --color-orca-navy-200: #5c769b;
+  --color-orca-navy-300: #536a91;
+  --color-orca-navy-400: #4c5868;
+  --color-orca-navy-500: #494e57;
+  --color-orca-navy-600: #3d4b64;
+}
+

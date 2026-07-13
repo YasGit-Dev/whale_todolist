@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/main.js"></script>
+    <title>Whale Todo List</title>
+  </head>
+
+  <body class="bg-[url('/src/img/orca_underwater_plants_background_day.png')] bg-cover bg-center bg-no-repeat text-orca-900">
+
+    <div id="navbar"></div>
+
+    <main>
+
+        <section class="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 md:py-16 lg:py-20">
+
+            <div
+              id="hero-card"
+              class="relative overflow-hidden rounded-[28px] p-6 shadow-xl
+              sm:rounded-4xl sm:p-8
+              md:rounded-[36px] md:p-10
+              lg:rounded-[42px] lg:p-12
+              bg-[linear-gradient(to_bottom_right,#ffffff,#f8fafc,#eef5fb)]
+              md:bg-[url('/src/img/orca_whale_front_view.png'),linear-gradient(to_bottom_right,#ffffff,#f8fafc,#eef5fb)]
+              md:bg-size-[45%,cover]
+              md:bg-position-[right_center,center]
+              [background-repeat:no-repeat,no-repeat]">
+
+                <div class="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-orca-blue-300 opacity-20 blur-3xl"></div>
+
+                <div class="absolute bottom-0 left-0 h-72 w-72 rounded-full bg-orca-300 opacity-20 blur-3xl"></div>
+
+                <div class="relative grid gap-8 sm:gap-10 md:gap-12 lg:gap-14 lg:grid-cols-2">
+
+                    <div>
+
+                        <span class="rounded-full bg-orca-blue-100 px-3 py-1.5 text-xs font-semibold text-orca-blue-900 sm:px-4 sm:py-2 sm:text-sm">
+
+                            Ocean Productivity
+
+                        </span>
+
+                        <h1 class="mt-6 text-3xl font-black leading-tight sm:mt-7 sm:text-4xl md:text-5xl lg:mt-8 lg:text-6xl">
+
+                            Stay focused.<br>
+
+                            Move with the waves.
+
+                        </h1>
+
+                        <p class="mt-5 max-w-xl text-base leading-7 text-orca-700 sm:mt-6 sm:text-lg sm:leading-8 lg:mt-8">
+
+                            A calm and modern planner designed to organize your
+                            tasks, habits and goals without distractions.
+
+                        </p>
+
+                        <div class="mt-7 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4 lg:mt-10 lg:gap-5">
+
+                            <button id="start-planning-btn" class="w-full rounded-2xl bg-orca-blue-900 px-6 py-3 font-semibold text-white transition hover:scale-105 sm:w-auto sm:px-7 sm:py-3.5 lg:px-8 lg:py-4">
+
+                                Start Planning
+
+                            </button>
+
+                            <button id="learn-more-btn" class="w-full rounded-2xl border border-orca-300 bg-white px-6 py-3 font-semibold sm:w-auto sm:px-7 sm:py-3.5 lg:px-8 lg:py-4">
+
+                                Learn More
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="grid gap-5">
+
+                       <div id="today-progress-card" class="rounded-3xl h-fit bg-white/30 p-6 backdrop-blur sm:p-7 lg:p-8">
+
+                            <div class="flex justify-between">
+
+                                <h3 class="font-bold">
+                                    Today's Progress
+                                </h3>
+
+                                <span id="today-progress-percent" class="font-bold text-orca-blue-900">
+                                    72%
+                                </span>
+
+                            </div>
+
+                            <div class="mt-5 h-3 rounded-full bg-orca-200">
+
+                                <div id="today-progress-fill" class="h-full w-[72%] rounded-full bg-orca-blue-900"></div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- نوار افقی -->
+
+        <section class="mx-auto max-w-7xl px-4 pb-10 sm:px-6 sm:pb-12 md:pb-14 lg:pb-16">
+
+            <div id="nav-links-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:grid-cols-5 lg:gap-6 xl:gap-7 2xl:gap-8">
+
+                <a id="nav-home" data-page="home" class="group rounded-3xl border border-orca-200 bg-white p-6 transition hover:-translate-y-2 hover:shadow-xl sm:p-7 lg:p-8">
+                    <h3 class="text-lg font-bold sm:text-xl">Home</h3>
+                    <p class="mt-2 text-sm text-orca-600 sm:mt-3">Dashboard overview</p>
+                </a>
+
+                <a id="nav-daily-planner" data-page="daily-planner" class="group rounded-3xl border border-orca-200 bg-white p-6 transition hover:-translate-y-2 hover:shadow-xl sm:p-7 lg:p-8">
+                    <h3 class="text-lg font-bold sm:text-xl">Daily Planner</h3>
+                    <p class="mt-2 text-sm text-orca-600 sm:mt-3">Today's schedule</p>
+                </a>
+
+                <a id="nav-weekly-planner" data-page="weekly-planner" class="group rounded-3xl border border-orca-200 bg-white p-6 transition hover:-translate-y-2 hover:shadow-xl sm:p-7 lg:p-8">
+                    <h3 class="text-lg font-bold sm:text-xl">Weekly Planner</h3>
+                    <p class="mt-2 text-sm text-orca-600 sm:mt-3">Week overview</p>
+                </a>
+
+                <a id="nav-habit-tracker" data-page="habit-tracker" class="group rounded-3xl border border-orca-200 bg-white p-6 transition hover:-translate-y-2 hover:shadow-xl sm:p-7 lg:p-8">
+                    <h3 class="text-lg font-bold sm:text-xl">Habit Tracker</h3>
+                    <p class="mt-2 text-sm text-orca-600 sm:mt-3">Keep consistency</p>
+                </a>
+
+                <a id="nav-notes-goals" data-page="notes-goals" class="group rounded-3xl border border-orca-200 bg-white p-6 transition hover:-translate-y-2 hover:shadow-xl sm:col-span-2 md:col-span-1 sm:p-7 lg:p-8">
+                    <h3 class="text-lg font-bold sm:text-xl">Notes & Goals</h3>
+                    <p class="mt-2 text-sm text-orca-600 sm:mt-3">Ideas and dreams</p>
+                </a>
+
+            </div>
+
+        </section>
+
+        <!-- پریویو -->
+
+        <section class="mx-auto max-w-7xl px-4 pb-14 sm:px-6 sm:pb-18 md:pb-20 lg:pb-24">
+
+            <div class="grid gap-6 sm:gap-7 md:gap-8 lg:grid-cols-3">
+
+                <div class="rounded-3xl bg-white p-6 sm:p-7 md:p-8 lg:col-span-2">
+
+                    <h2 class="text-xl font-bold sm:text-2xl">
+                        Today's Tasks
+                    </h2>
+
+                    <div id="today-tasks-list" class="mt-6 space-y-3 sm:mt-8 sm:space-y-4">
+
+                        <div id="task-1" data-task-id="1" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
+                            Finish UI Design
+                        </div>
+
+                        <div id="task-2" data-task-id="2" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
+                            Workout
+                        </div>
+
+                        <div id="task-3" data-task-id="3" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
+                            Read 30 Minutes
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="space-y-5 sm:space-y-6">
+
+                    <div id="weekly-goal-card" class="rounded-3xl bg-white p-6 sm:p-7 md:p-8">
+
+                        <h3 class="font-bold">
+                            Weekly Goal
+                        </h3>
+
+                        <div class="mt-5 h-3 rounded-full bg-orca-200">
+
+                            <div id="weekly-goal-fill" class="h-full w-4/5 rounded-full bg-orca-blue-900"></div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="quote-card" class="rounded-3xl bg-white p-6 sm:p-7 md:p-8">
+
+                        <h3 class="font-bold">
+                            Quote
+                        </h3>
+
+                        <p id="quote-text" class="mt-5 leading-7 text-orca-600 sm:leading-8">
+
+                            Little by little, the ocean shapes the shore.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <div id="footer"></div>
+
+
+  </body>
+</html>
