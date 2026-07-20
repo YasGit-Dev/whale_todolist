@@ -5,8 +5,172 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script type="module" src="/src/main.js"></script>
-    <title>whale todo list</title>
+    <title>Daily Planner — Whale Todo List</title>
   </head>
-  <body>
+  <body class="bg-[url('/src/img/orca_ocean_background_dark_night.png')] bg-cover bg-center bg-no-repeat bg-fixed text-orca-900">
+
+        <div id="navbar"></div>
+        <section class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-14 md:py-16">
+
+
+          <div
+  id="planner-hero"
+  class="relative flex overflow-hidden rounded-[28px] p-6 shadow-xl
+  sm:rounded-4xl sm:p-8
+  md:rounded-[36px] md:p-10
+  bg-[linear-gradient(to_bottom_right,#ffffff,#f8fafc,#eef5fb)]
+  before:absolute before:inset-0 before:content-['']
+  before:bg-[url('/src/img/orca_whale_astronaut.png')]
+  [background-origin:border-box]
+  before:[background-origin:content-box]
+  before:[background-position:left_center]
+  before:[background-size:contain]
+  before:[background-repeat:no-repeat]
+  before:opacity-100
+  max-[1020px]:before:opacity-40
+  before:transition-opacity before:duration-300"
+>
+
+    <div class="relative ml-auto w-full max-w-md sm:max-w-lg">
+        <h1 class="mt-6 max-w-lg text-2xl font-black leading-tight sm:text-3xl md:text-4xl">
+        Plan your day, one wave at a time.
+      </h1>
+
+      <form id="add-task-form" class="mt-6 flex max-w-lg flex-col gap-3 sm:flex-row sm:gap-3">
+        <input
+          id="add-task-input"
+          type="text"
+          placeholder="Add a task..."
+          class="w-full rounded-2xl border border-orca-300 bg-white/80 px-5 py-3 text-sm outline-none focus:border-orca-blue-900 sm:text-base"
+        />
+        <button
+          id="add-task-btn"
+          type="submit"
+          class="w-full shrink-0 rounded-2xl bg-orca-blue-900 px-6 py-3 font-semibold text-white transition hover:scale-105 sm:w-auto">
+          + Add Task
+        </button>
+      </form>
+</div>
+</section>
+
+
+ <!-- Progress + Mood -->
+      <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+        <div class="grid gap-5 sm:grid-cols-2">
+
+          <div id="progress-card" class="rounded-3xl bg-white p-6 sm:p-7">
+            <div class="flex items-center justify-between">
+              <h3 class="font-bold">Today's Progress</h3>
+              <span id="progress-percent" class="font-bold text-orca-blue-900">0%</span>
+            </div>
+            <div class="mt-5 h-3 rounded-full bg-orca-200">
+              <div id="progress-fill" class="h-full w-0 rounded-full bg-orca-blue-900 transition-all"></div>
+            </div>
+          </div>
+
+          <div
+            id="mood-card"
+            class="relative overflow-hidden rounded-3xl bg-white p-6  sm:p-7  md:p-8 pr-20 sm:pr-24 md:pr-32">
+
+            <div class="pointer-events-none absolute bottom-1 right-2 h-20 w-20 bg-[url('/src/img/orca_whale_watercolor.png.png')] bg-position-[100%_0%] bg-contain bg-no-repeat sm:h-24 sm:w-24 md:h-32 md:w-32"></div>
+            
+            <h3 class="font-bold">Mood</h3>
+<div id="mood-options" class="relative mt-5 items-center gap-2 sm:flex-nowrap">
+  <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4">
+    <button data-mood="great" class="mood-btn aspect-square w-10 shrink-0 rounded-2xl bg-orca-100 bg-[url('/src/img/mood/great.png')] bg-contain bg-center bg-no-repeat transition hover:scale-110 sm:w-12 md:w-14"></button>
+    <button data-mood="happy" class="mood-btn aspect-square w-10 shrink-0 rounded-2xl bg-orca-100 bg-[url('/src/img/mood/happy.png')] bg-contain bg-center bg-no-repeat transition hover:scale-110 sm:w-12 md:w-14"></button>
+    <button data-mood="depressed" class="mood-btn aspect-square w-10 shrink-0 rounded-2xl bg-orca-100 bg-[url('/src/img/mood/depressed.png')] bg-contain bg-center bg-no-repeat transition hover:scale-110 sm:w-12 md:w-14"></button>
+    <button data-mood="sad" class="mood-btn aspect-square w-10 shrink-0 rounded-2xl bg-orca-100 bg-[url('/src/img/mood/sad.png')] bg-contain bg-center bg-no-repeat transition hover:scale-110 sm:w-12 md:w-14"></button>
+  </div>
+</div>
+
+        </div>
+      </section>
+
+      <!-- flow mood button -->
+      <button
+  id="floating-mood-btn"
+  class="shadow-[0_0_20px_rgba(1,1,1,1)] fixed bottom-5 right-5 z-50 hidden h-14 w-14 rounded-2xl bg-white ring-2 ring-amber-50 transition hover:scale-110 sm:h-16 sm:w-16"
+  aria-label="Current mood"
+></button>
+
+      <!-- Priority Tasks -->
+      <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+        <div id="priority-tasks-card" class="relative overflow-hidden rounded-3xl bg-white p-6 pl-24 sm:p-7 sm:pl-28 md:p-8 md:pl-40">
+
+          <div class="pointer-events-none absolute top-2 left-2 h-20 w-20 bg-[url('/src/img/orca_whale_diving.png')] bg-position-[100%_0%] bg-contain bg-no-repeat sm:h-24 sm:w-24 md:h-32 md:w-32"></div>
+
+          <h2 class="relative text-xl font-bold sm:text-2xl">Priority Tasks</h2>
+
+          <ul id="priority-tasks-list" class="relative mt-6 space-y-3">
+
+
+          </ul>
+
+        </div>
+      </section>
+
+            <!-- Timeline -->
+      <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
+        <div id="timeline-card" class="relative overflow-hidden rounded-3xl bg-white p-6 pl-16 sm:p-7 sm:pl-20 md:p-8 md:pl-28">
+
+          <div class="pointer-events-none absolute bottom-2 left-3 h-12 w-12 bg-[url('/src/img/orca_front_view.png')] bg-contain bg-no-repeat sm:h-14 sm:w-14 md:h-20 md:w-20"></div>
+
+          <div>
+            <h2 class="relative text-xl font-bold sm:text-2xl">Schedule Timeline</h2>
+          </div>
+
+          <ol id="timeline-list" class="relative mt-6 space-y-4 border-r-2 border-orca-200 pr-5">
+
+            <li data-time="08:00" class="relative">
+              <span class="absolute -right-6.5 top-1 h-3 w-3 rounded-full bg-orca-blue-900"></span>
+              <span class="text-sm font-semibold text-orca-blue-900">08:00</span>
+              <p class="text-orca-700">Morning Routine</p>
+            </li>
+
+            <li data-time="10:00" class="relative">
+              <span class="absolute -right-6.5 top-1 h-3 w-3 rounded-full bg-orca-blue-900"></span>
+              <span class="text-sm font-semibold text-orca-blue-900">10:00</span>
+              <p class="text-orca-700">Coding</p>
+            </li>
+
+            <li data-time="13:00" class="relative">
+              <span class="absolute -right-6.5 top-1 h-3 w-3 rounded-full bg-orca-blue-900"></span>
+              <span class="text-sm font-semibold text-orca-blue-900">13:00</span>
+              <p class="text-orca-700">Lunch</p>
+            </li>
+
+          </ol>
+
+        </div>
+      </section>
+
+      
+      <!-- Notes -->
+      <section class="mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-18">
+        <div
+          id="notes-card"
+          class="relative overflow-hidden rounded-3xl bg-white p-6 pl-28 sm:p-7 sm:pl-36 md:p-8 md:pl-48
+          bg-[url('/src/img/orca_whale_cosmic.png.png')]
+          bg-size-[110px] sm:bg-size-[140px] md:bg-size-[180px]
+          bg-position-[0%_100%]
+          bg-no-repeat">
+
+          <h2 class="relative text-xl font-bold sm:text-2xl">Today's Notes</h2>
+
+          <textarea
+            id="notes-textarea"
+            rows="4"
+            placeholder="Write your reflections here..."
+            class="relative mt-5 w-full resize-none rounded-2xl border border-orca-200 bg-orca-50/40 p-4 text-sm outline-none focus:border-orca-blue-900 sm:text-base"
+          ></textarea>
+
+        </div>
+      </section>
+
+          <div id="footer"></div>
+
+
+  
   </body>
 </html>

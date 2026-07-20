@@ -8,8 +8,7 @@
     <title>Whale Todo List</title>
   </head>
 
-  <body class="bg-[url('/src/img/orca_underwater_plants_background_day.png')] bg-cover bg-center bg-no-repeat text-orca-900">
-
+<body class="bg-[url('/src/img/orca_underwater_plants_background_day.png')] bg-cover bg-center bg-no-repeat bg-fixed text-orca-900">
     <div id="navbar"></div>
 
     <main>
@@ -156,17 +155,19 @@
 
                     <div id="today-tasks-list" class="mt-6 space-y-3 sm:mt-8 sm:space-y-4">
 
-                        <div id="task-1" data-task-id="1" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
-                            Finish UI Design
-                        </div>
+                            <input
+      type="text"
+      id="taskInput"
+      placeholder="یه تسک جدید بنویس..."
+      class="w-full rounded-2xl border border-orca-200 bg-white px-5 py-3.5 text-orca-900 placeholder:text-orca-400 outline-none transition focus:border-orca-blue-900 focus:ring-4 focus:ring-orca-blue-100">
 
-                        <div id="task-2" data-task-id="2" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
-                            Workout
-                        </div>
 
-                        <div id="task-3" data-task-id="3" class="rounded-2xl bg-orca-100 p-4 sm:p-5">
-                            Read 30 Minutes
-                        </div>
+                         <button id="addButton" class="w-full rounded-2xl bg-orca-blue-900 px-6 py-3 font-semibold text-white transition hover:scale-105  sm:px-7 sm:py-3.5 lg:px-8 lg:py-4">
+
+                                add tasks
+
+                            </button>
+                            <div id="tasks-list" class="mt-6 space-y-3 sm:mt-8 sm:space-y-4"></div>
 
                     </div>
 

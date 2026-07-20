@@ -34,3 +34,11 @@
   --color-orca-navy-600: #3d4b64;
 }
 
+@keyframes mood-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+  }
+  .mood-pulse-active {
+    animation: mood-pulse 2s ease-in-out infinite;
+  }
+  
