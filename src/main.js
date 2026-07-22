@@ -1,36 +1,20 @@
-import './style.css'
-
+import './style.css';
 
 import { loadLayout } from "./js/layout.js";
 import { initNavbar } from "./js/components/navbar.js";
-import { initForm } from "./js/pages/daily.js";
-
-
+import { initForm,initMoodTracker  } from "./js/pages/daily.js";
+import { initHomeTasksPreview } from "./js/pages/home.js";
 
 document.addEventListener("DOMContentLoaded", () => {
     loadLayout();
     initNavbar();
-    initForm();
-});
 
-const taskInput = document.getElementById("taskInput")
-const addButton = document.getElementById("addButton")
-const textWrapper = document.getElementById("tasks-list")
+    if (document.getElementById("add-task-form")) {
+        initForm();
+        initMoodTracker ();
+    }
 
-
-function addTask() {
-    if (taskInput.value.trim() === "") return;
-
-    textWrapper.innerHTML += `<div class="rounded-2xl bg-orca-100 p-4 sm:p-5">${taskInput.value}</div>`;
-
-    taskInput.value = "";
-    taskInput.focus();
-}
-
-addButton.addEventListener("click", addTask);
-
-taskInput.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-        addTask();
+    if (document.getElementById("tasks-list")) {
+        initHomeTasksPreview();
     }
 });

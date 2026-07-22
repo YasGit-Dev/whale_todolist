@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/main.js"></script>
     <title>Daily Planner — Whale Todo List</title>
   </head>
   <body class="bg-[url('/src/img/orca_ocean_background_dark_night.png')] bg-cover bg-center bg-no-repeat bg-fixed text-orca-900">
@@ -61,10 +61,10 @@
           <div id="progress-card" class="rounded-3xl bg-white p-6 sm:p-7">
             <div class="flex items-center justify-between">
               <h3 class="font-bold">Today's Progress</h3>
-              <span id="progress-percent" class="font-bold text-orca-blue-900">0%</span>
+              <span id="progress-label" class="font-bold text-orca-blue-900">0%</span>
             </div>
             <div class="mt-5 h-3 rounded-full bg-orca-200">
-              <div id="progress-fill" class="h-full w-0 rounded-full bg-orca-blue-900 transition-all"></div>
+              <div id="progress-bar-fill" class="h-full w-0 rounded-full bg-orca-blue-900 transition-all"></div>
             </div>
           </div>
 
@@ -109,6 +109,8 @@
 
         </div>
       </section>
+
+      
 
             <!-- Timeline -->
       <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-6">
