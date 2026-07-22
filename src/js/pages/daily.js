@@ -1,4 +1,5 @@
-import { getTasks, addTaskToStore, deleteTaskFromStore, toggleTaskInStore, getTodayTasks, getProgress } from "../tasks-store.js";
+import { getTasks, addTaskToStore, deleteTaskFromStore, toggleTaskInStore, getTodayTasks, getProgress, isTaskLocked } from "../tasks-store.js";
+
 
 // ============ بخش تسک‌ها ============
 const form = document.getElementById("add-task-form");
@@ -6,13 +7,17 @@ const taskInput = document.getElementById("add-task-input");
 const addButton = document.getElementById("add-task-btn");
 const textWrapper = document.getElementById("priority-tasks-list");
 
+
 function renderTask(task) {
-    return `<li data-task-id="${task.id}" class="flex items-center gap-3 rounded-2xl bg-orca-100 p-4">
-              <input type="checkbox" class="task-checkbox h-5 w-5 shrink-0 accent-orca-blue-900" ${task.completed ? "checked" : ""} />
+    const locked = isTaskLocked(task.id);
+    return `<li data-task-id="${task.id}" class="flex items-center gap-3 rounded-2xl bg-orca-100 p-4 select-none">
+              <input type="checkbox" class="task-checkbox h-5 w-5 shrink-0 accent-orca-blue-900" ${task.completed ? "checked" : ""} ${locked ? "disabled" : ""} />
               <span class="task-label flex-1 wrap-break-word ${task.completed ? "line-through opacity-50" : ""}">${task.text}</span>
               <button data-action="delete-task" class="shrink-0 text-orca-500 hover:text-orca-900">✕</button>
             </li>`;
 }
+
+
 
 function renderAllTasks() {
     textWrapper.innerHTML = getTasks().map(renderTask).join("");
@@ -27,6 +32,10 @@ function renderProgress() {
 
     if (progressBar) progressBar.style.width = `${percent}%`;
     if (progressLabel) progressLabel.textContent = `${percent}%`;
+
+    if (percent === 100) {
+        renderAllTasks();
+    }
 }
 
 export function initForm() {
@@ -66,6 +75,7 @@ export function initForm() {
             renderProgress();
 
         } else if (e.target.matches(".task-checkbox")) {
+           if (isTaskLocked(id)) return; 
             toggleTaskInStore(id);
             const label = li.querySelector(".task-label");
         label.classList.toggle("line-through");
