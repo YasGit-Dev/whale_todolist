@@ -36,20 +36,25 @@
         Plan your day, one wave at a time.
       </h1>
 
-      <form id="add-task-form" class="mt-6 flex max-w-lg flex-col gap-3 sm:flex-row sm:gap-3">
-        <input
-          id="add-task-input"
-          type="text"
-          placeholder="Add a task..."
-          class="w-full rounded-2xl border border-orca-300 bg-white/80 px-5 py-3 text-sm outline-none focus:border-orca-blue-900 sm:text-base"
-        />
-        <button
-          id="add-task-btn"
-          type="submit"
-          class="w-full shrink-0 rounded-2xl bg-orca-blue-900 px-6 py-3 font-semibold text-white transition hover:scale-105 sm:w-auto">
-          + Add Task
-        </button>
-      </form>
+      <form id="hero-task-form" class="mt-6 flex max-w-lg flex-col gap-3 sm:flex-row sm:gap-3">
+  <input
+    id="add-task-input1"
+    type="text"
+    placeholder="Add a task..."
+    class="w-full rounded-2xl border border-orca-300 bg-white/80 px-5 py-3 text-sm outline-none focus:border-orca-blue-900 sm:text-base"
+  />
+  <input
+    id="add-task-time1"
+    type="time"
+    class="w-full rounded-2xl border border-orca-300 bg-white/80 px-5 py-3 text-sm outline-none focus:border-orca-blue-900 sm:w-40 sm:text-base"
+  />
+  <button
+    id="add-task-btn1"
+    type="submit"
+    class="w-full shrink-0 rounded-2xl bg-orca-blue-900 px-6 py-3 font-semibold text-white transition hover:scale-105 sm:w-auto">
+    + Add Task
+  </button>
+</form>
 </div>
 </section>
 
@@ -100,12 +105,44 @@
 
           <div class="pointer-events-none absolute top-2 left-2 h-20 w-20 bg-[url('/src/img/orca_whale_diving.png')] bg-position-[100%_0%] bg-contain bg-no-repeat sm:h-24 sm:w-24 md:h-32 md:w-32"></div>
 
-          <h2 class="relative text-xl font-bold sm:text-2xl">Priority Tasks</h2>
+  <h2 class="text-xl font-bold text-orca-900 mb-4">Priority Tasks</h2>
 
-          <ul id="priority-tasks-list" class="relative mt-6 space-y-3">
+  <!-- تب‌های تاپیک -->
+  <div class="flex items-center gap-4 mb-4">
+    <div id="topics-list" class="flex gap-4 flex-wrap"></div>
+    <button id="add-topic-btn" class="text-orca-blue-900 font-bold px-2 shrink-0">+</button>
+  </div>
 
+  <!-- فرم اضافه کردن تسک -->
+  <form id="add-task-form" class="flex gap-2 mb-4">
+    <input
+  id="add-task-topic"
+  list="topic-options"
+  type="text"
+  placeholder="Topic (optional)"
+  class="w-32 rounded-xl border border-orca-200 p-2 text-sm"
+/>
+<datalist id="topic-options"></datalist>
+    <input id="add-task-input" type="text" placeholder="New task..." class="flex-1 rounded-xl border border-orca-200 p-2 text-sm" />
+    <button id="add-task-btn" type="button" class="rounded-xl bg-orca-blue-900 text-white px-4 text-sm">Add</button>
+  </form>
 
-          </ul>
+  <!-- لیست تسک‌های تاپیک فعال -->
+  <ul id="priority-tasks-list" class="space-y-3"></ul>
+
+  <!-- بخش تسک‌های تکمیل‌شده (آکاردئون) -->
+  <button id="completed-toggle" class="flex items-center gap-1 text-xs text-orca-400 hover:text-orca-600 mt-3 select-none">
+    <span id="completed-toggle-icon" class="transition-transform">›</span>
+    <span id="completed-toggle-label">0 tasks completed today</span>
+  </button>
+  <ul id="completed-tasks-list" class="hidden mt-2 space-y-1.5"></ul>
+
+  <!-- Pagination -->
+  <div class="flex justify-center gap-6 mt-4">
+    <button id="page-prev" class="text-orca-blue-900 disabled:opacity-30" disabled>‹</button>
+    <button id="page-next" class="text-orca-blue-900 disabled:opacity-30" disabled>›</button>
+  </div>
+
 
         </div>
       </section>

@@ -41,4 +41,21 @@
   .mood-pulse-active {
     animation: mood-pulse 2s ease-in-out infinite;
   }
-  
+
+  .completed-open #completed-toggle-icon {
+    transform: rotate(90deg);
+}
+
+
+.topic-delete-btn.show {
+    margin-right: 0.5rem;
+    max-width: 16px;
+    opacity: 1;
+}
+
+.topic-item.pressed {
+    border: 1px solid var(--color-orca-300);
+    background-color: var(--color-orca-100);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}

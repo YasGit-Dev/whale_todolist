@@ -1,7 +1,9 @@
 import confetti from 'canvas-confetti';
+
 const STORAGE_KEY = "priorityTasks";
+const TOPICS_KEY = "topics";
 
-
+// ============ تسک‌ها ============
 export function getTasks() {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -11,13 +13,17 @@ export function saveTasks(tasks) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
 }
 
-export function addTaskToStore(text) {
+export function addTaskToStore(text, topic) {
+    const finalTopic = topic && topic.trim() !== "" ? topic.trim() : "General";
+    ensureTopicExists(finalTopic);
+
     const tasks = getTasks();
     const newTask = {
         id: Date.now().toString(),
         text,
         completed: false,
         date: new Date().toISOString().split('T')[0],
+        topic: finalTopic,
     };
     tasks.push(newTask);
     saveTasks(tasks);
@@ -41,6 +47,7 @@ export function getTodayTasks() {
     return getTasks().filter((task) => task.date === today);
 }
 
+// ============ پیشرفت + اکلیل ============
 export function getProgress(tasks) {
     if (tasks.length === 0) return 0;
 
@@ -51,7 +58,6 @@ export function getProgress(tasks) {
         const currentIds = tasks.map((t) => t.id);
         const lockedIds = getLockedTaskIds();
 
-        // آیا id ای هست که تازه داره قفل میشه (یعنی این یه لحظه‌ی ۱۰۰٪ جدیده)؟
         const hasNewLock = currentIds.some((id) => !lockedIds.includes(id));
 
         if (hasNewLock) {
@@ -69,8 +75,6 @@ function fireConfettiAboveProgressBar() {
     if (!progressBar) return;
 
     const rect = progressBar.getBoundingClientRect();
-
-    // تبدیل موقعیت المنت به نسبت 0 تا 1 از کل صفحه (که canvas-confetti نیاز داره)
     const x = (rect.left + rect.width / 2) / window.innerWidth;
     const y = rect.top / window.innerHeight;
 
@@ -82,6 +86,7 @@ function fireConfettiAboveProgressBar() {
     });
 }
 
+// ============ قفل کردن تسک‌های تکمیل‌شده ============
 function getTodayLockKey() {
     const today = new Date().toISOString().split('T')[0];
     return `locked-tasks-${today}`;
@@ -98,4 +103,52 @@ function saveLockedTaskIds(ids) {
 
 export function isTaskLocked(taskId) {
     return getLockedTaskIds().includes(taskId);
+}
+
+export function getLockedTasksForToday() {
+    const lockedIds = getLockedTaskIds();
+    return getTodayTasks().filter((task) => lockedIds.includes(task.id));
+}
+
+// ============ تاپیک‌ها ============
+function getStoredTopics() {
+    const raw = localStorage.getItem(TOPICS_KEY);
+    return raw ? JSON.parse(raw) : ["General"];
+}
+
+function saveStoredTopics(topics) {
+    localStorage.setItem(TOPICS_KEY, JSON.stringify(topics));
+}
+
+export function ensureTopicExists(name) {
+    const topics = getStoredTopics();
+    if (!topics.includes(name)) {
+        topics.push(name);
+        saveStoredTopics(topics);
+    }
+}
+
+export function addTopic(name) {
+    ensureTopicExists(name);
+}
+
+export function getTopics() {
+    return getStoredTopics();
+}
+
+export function removeTopic(name) {
+    if (name === "General") return; // General قابل حذف نیست
+
+    // تسک‌های این تاپیک رو به General منتقل کن
+    const tasks = getTasks();
+    tasks.forEach((task) => {
+        if (task.topic === name) {
+            task.topic = "General";
+        }
+    });
+    saveTasks(tasks);
+
+    // خود تاپیک رو از لیست حذف کن
+    const topics = getStoredTopics().filter((t) => t !== name);
+    saveStoredTopics(topics);
 }
