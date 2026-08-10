@@ -4,6 +4,14 @@ import {
     getLockedTasksForToday
 } from "../tasks-store.js";
 
+import {
+    addTimelineEntry, getTodayTimelineEntries, deleteTimelineEntry,
+    getPendingNotifications, markEntryNotified
+} from "../timeline-store.js";
+
+import { saveTodayNotes, loadTodayNotes
+} from "../notes-store.js";
+
 // ============ Elements ============
 const form = document.getElementById("add-task-form");
 const taskInput = document.getElementById("add-task-input");
@@ -17,6 +25,12 @@ const nextBtn = document.getElementById("page-next");
 const completedToggle = document.getElementById("completed-toggle");
 const completedToggleLabel = document.getElementById("completed-toggle-label");
 const completedWrapper = document.getElementById("completed-tasks-list");
+const heroForm = document.getElementById("hero-task-form");
+const heroTaskInput = document.getElementById("add-task-input1");
+const heroTimeInput = document.getElementById("add-task-time1");
+const timelineList = document.getElementById("timeline-list");
+const notesTextarea = document.getElementById("notes-textarea");
+
 
 const PAGE_SIZE = 5;
 let activeTopic = null;
@@ -100,7 +114,6 @@ function setupLongPress() {
 
     topicsWrapper.addEventListener("mousedown", startPress);
     topicsWrapper.addEventListener("touchstart", startPress);
-
     topicsWrapper.addEventListener("mouseup", cancelTimerOnly);
     topicsWrapper.addEventListener("mouseleave", cancelTimerOnly);
     topicsWrapper.addEventListener("touchend", cancelTimerOnly);
@@ -165,19 +178,34 @@ function renderCompletedTasks() {
         : `<li class="text-orca-300 text-xs">Nothing yet</li>`;
 }
 
-// ============ Render everything together ============
-function renderEverything() {
-    renderTopics();
-    renderTopicSelect();
-    renderProgress();   // ⬅️ اول: اینجا قفل فعال می‌شه (اگه ۱۰۰٪ شده باشه)
-    renderTaskList();   // ⬅️ بعد: حالا می‌دونه کدوم قفله، پس فیلترش می‌کنه و از لیست حذف می‌شه
-    renderCompletedTasks(); // ⬅️ و همینجا هم نمایششون می‌ده
-}
 
 // ============ Init ============
 export function initForm() {
     renderEverything();
     setupLongPress();
+    setupTimelineLongPress();
+    setupNotes();
+
+
+
+        heroForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        if (heroTaskInput.value.trim() === "" || heroTimeInput.value === "") return;
+
+        addTimelineEntry(heroTaskInput.value.trim(), heroTimeInput.value);
+
+        heroTaskInput.value = "";
+        heroTimeInput.value = "";
+        heroTaskInput.focus();
+
+
+        renderTimeline();
+    });
+
+
+
+
 
     form.addEventListener("submit", (e) => {
         e.preventDefault();
@@ -277,6 +305,18 @@ export function initForm() {
             renderEverything();
         }
     });
+
+    timelineList.addEventListener("click", (e) => {
+    const deleteBtn = e.target.closest('[data-action="delete-entry"]');
+    if (!deleteBtn) return;
+
+    const li = deleteBtn.closest("li[data-entry-id]");
+    const id = li.dataset.entryId;
+
+    deleteTimelineEntry(id);
+    renderTimeline();
+});
+
 }
 
 // ============ بخش Mood ============
@@ -379,4 +419,101 @@ export function initMoodTracker() {
     if (moodOptions) {
         moodOptions.addEventListener('click', handleMoodSelect);
     }
+}
+
+function renderTimelineItem(entry) {
+    return `<li data-entry-id="${entry.id}" data-time="${entry.time}" class="timeline-item relative flex items-start gap-2 select-none">
+              <button data-action="delete-entry" class="timeline-delete-btn shrink-0 text-orca-300 opacity-0 max-w-0 overflow-hidden transition-all duration-200 hover:text-orca-navy-600">
+                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div class="timeline-content">
+                <span class="absolute -right-6.5 top-1 h-3 w-3 rounded-full bg-orca-blue-900"></span>
+                <span class="text-sm font-semibold text-orca-blue-900">${entry.time}</span>
+                <p class="text-orca-700">${entry.text}</p>
+              </div>
+            </li>`;
+}
+
+function renderTimeline() {
+    const entries = getTodayTimelineEntries();
+    timelineList.innerHTML = entries.length
+        ? entries.map(renderTimelineItem).join("")
+        : `<li class="text-orca-400 text-sm">No scheduled items for today</li>`;
+}
+
+
+
+function setupTimelineLongPress() {
+    const LONG_PRESS_DURATION = 500;
+    let pressTimer = null;
+
+    function showDeleteButton(item) {
+        document.querySelectorAll(".timeline-delete-btn.show").forEach((btn) => {
+            btn.classList.remove("show");
+        });
+
+        const deleteBtn = item.querySelector(".timeline-delete-btn");
+        if (deleteBtn) deleteBtn.classList.add("show");
+    }
+
+    function startPress(e) {
+         const content = e.target.closest(".timeline-content");
+    if (!content) return;
+
+    const item = content.closest(".timeline-item");
+    if (!item) return;
+
+        pressTimer = setTimeout(() => {
+            showDeleteButton(item);
+        }, LONG_PRESS_DURATION);
+    }
+
+    function cancelTimerOnly() {
+        clearTimeout(pressTimer);
+    }
+
+    timelineList.addEventListener("mousedown", startPress);
+    timelineList.addEventListener("touchstart", startPress);
+
+    timelineList.addEventListener("mouseup", cancelTimerOnly);
+    timelineList.addEventListener("mouseleave", cancelTimerOnly);
+    timelineList.addEventListener("touchend", cancelTimerOnly);
+    timelineList.addEventListener("touchcancel", cancelTimerOnly);
+
+    document.addEventListener("click", (e) => {
+        if (!timelineList.contains(e.target)) {
+            document.querySelectorAll(".timeline-delete-btn.show").forEach((btn) => {
+                btn.classList.remove("show");
+            });
+        }
+    });
+}
+
+
+function setupNotes() {
+    if (!notesTextarea) return;
+
+    notesTextarea.value = loadTodayNotes();
+
+    let debounceTimer = null;
+    notesTextarea.addEventListener("input", () => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+            saveTodayNotes(notesTextarea.value);
+        }, 500);
+    });
+}
+
+
+
+// ============ Render everything together ============
+function renderEverything() {
+    renderTopics();
+    renderTopicSelect();
+    renderProgress();   // اول: اینجا قفل فعال می‌شه (اگه ۱۰۰٪ شده باشه)
+    renderTaskList();   // بعد: حالا می‌دونه کدوم قفله، پس فیلترش می‌کنه و از لیست حذف می‌شه
+    renderCompletedTasks(); //  و همینجا هم نمایششون می‌ده
+    renderTimeline();
 }

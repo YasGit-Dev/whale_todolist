@@ -59,3 +59,8 @@
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+.timeline-delete-btn.show {
+    opacity: 1;
+    max-width: 20px;
+}
