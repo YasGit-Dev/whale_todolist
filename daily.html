@@ -21,11 +21,11 @@
   bg-[linear-gradient(to_bottom_right,#ffffff,#f8fafc,#eef5fb)]
   before:absolute before:inset-0 before:content-['']
   before:bg-[url('/src/img/orca_whale_astronaut.png')]
-  [background-origin:border-box]
-  before:[background-origin:content-box]
-  before:[background-position:left_center]
-  before:[background-size:contain]
-  before:[background-repeat:no-repeat]
+  bg-origin-border
+  before:bg-origin-content
+  before:bg-position-[left_center]
+  before:bg-contain
+  before:bg-no-repeat
   before:opacity-100
   max-[1020px]:before:opacity-40
   before:transition-opacity before:duration-300"
@@ -89,15 +89,14 @@
   </div>
 </div>
 
-        </div>
+      </div>
       </section>
 
       <!-- flow mood button -->
       <button
   id="floating-mood-btn"
   class="shadow-[0_0_20px_rgba(1,1,1,1)] fixed bottom-5 right-5 z-50 hidden h-14 w-14 rounded-2xl bg-white ring-2 ring-amber-50 transition hover:scale-110 sm:h-16 sm:w-16"
-  aria-label="Current mood"
-></button>
+  aria-label="Current mood"></button>
 
       <!-- Priority Tasks -->
       <section class="mx-auto max-w-6xl px-4 pb-6 sm:px-6">

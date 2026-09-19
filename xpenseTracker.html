@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/main.js"></script>
+    <title>whale todo list</title>
+  </head>
+ <body class="min-h-screen flex items-center justify-center p-5 font-['Poppins',sans-serif] bg-linear-to-br from-orca-navy-600 to-orca-300">
+ 
+    <div class="w-full max-w-6xl bg-orca-100 p-8 rounded-3xl shadow-2xl">
+      <h1 class="text-center text-orca-950 mb-9 text-4xl font-semibold tracking-tight">
+        Expense Tracker
+      </h1>
+ 
+      <!-- Balance -->
+      <div class="text-center mb-9 p-6 rounded-2xl shadow-md bg-linear-to-br from-orca-blue-500 to-orca-navy-600">
+        <h2 class="text-orca-100 mb-4 text-xl font-medium">Your Balance</h2>
+        <h1 id="balance" class="text-white text-[clamp(1.5rem,5vw,3rem)] font-semibold my-4">
+          $0.00
+        </h1>
+ 
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+          <div class="bg-white p-6 rounded-2xl shadow-md hover:-translate-y-0.5 transition-transform">
+            <h3 class="text-orca-navy-300 text-lg font-medium">Income</h3>
+            <p id="income-amount" class="text-orca-navy-300 mt-2 text-[clamp(1rem,3vw,1.5rem)] font-semibold">
+              $0.00
+            </p>
+          </div>
+          <div class="bg-white p-6 rounded-2xl shadow-md hover:-translate-y-0.5 transition-transform">
+            <h3 class="text-orca-red-500 text-lg font-medium">Expenses</h3>
+            <p id="expense-amount" class="text-orca-red-500 mt-2 text-[clamp(1rem,3vw,1.5rem)] font-semibold">
+              $0.00
+            </p>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Main content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+ 
+        <!-- Transactions -->
+        <div class="h-full flex flex-col">
+          <h2 class="text-orca-900 mb-4 text-xl font-medium">Transactions</h2>
+          <ul id="transaction-list" class="list-none max-h-125 overflow-y-auto pr-2 grow">
+            <!-- آیتم‌های تراکنش با جاوااسکریپت اینجا اضافه می‌شن -->
+          </ul>
+        </div>
+ 
+        <!-- Form -->
+        <div class="h-full flex flex-col bg-linear-to-br from-orca-100 to-orca-200 p-6 rounded-2xl shadow-md">
+          <h2 class="text-orca-900 mb-4 text-xl font-medium">Add Transaction</h2>
+ 
+          <form id="transaction-form" class="h-full flex flex-col">
+            <div class="mb-5">
+              <label for="description" class="block mb-2 text-orca-800 font-medium">Description</label>
+              <input
+                type="text"
+                id="description"
+                placeholder="Enter description..."
+                required
+                class="w-full px-4 py-3 rounded-lg border-2 border-orca-200 bg-white text-base transition-colors focus:outline-none focus:border-orca-blue-600 focus:ring-4 focus:ring-orca-blue-500/15 hover:border-orca-300"
+              />
+            </div>
+ 
+            <div class="mb-5">
+              <label for="amount" class="block mb-2 text-orca-800 font-medium">Amount</label>
+              <input
+                type="number"
+                id="amount"
+                placeholder="Enter amount..."
+                required
+                class="w-full px-4 py-3 rounded-lg border-2 border-orca-200 bg-white text-base transition-colors focus:outline-none focus:border-orca-blue-600 focus:ring-4 focus:ring-orca-blue-500/15 hover:border-orca-300"
+              />
+              <small class="block mt-1 text-orca-600 text-sm">Use negative (-) for expenses</small>
+            </div>
+ 
+            <button
+              type="submit"
+              class="mt-auto w-full py-3.5 rounded-lg text-white font-medium shadow-lg shadow-orca-navy-600/25 bg-linear-to-br from-orca-blue-700 to-orca-navy-600 hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 transition-all"
+            >
+              Add Transaction
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+   </body>
+</html>

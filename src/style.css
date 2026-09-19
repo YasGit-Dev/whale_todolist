@@ -32,6 +32,11 @@
   --color-orca-navy-400: #4c5868;
   --color-orca-navy-500: #494e57;
   --color-orca-navy-600: #3d4b64;
+
+
+  --color-orca-red-500: #b3475a;
+  --color-orca-red-600: #a13c4d;
+  --animate-slide-in: slideIn 0.3s ease;
 }
 
 @keyframes mood-pulse {
@@ -64,3 +69,35 @@
     opacity: 1;
     max-width: 20px;
 }
+
+
+
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+ 
+/* اسکرول‌بار سفارشی لیست تراکنش‌ها */
+#transaction-list::-webkit-scrollbar {
+  width: 8px;
+}
+#transaction-list::-webkit-scrollbar-track {
+  background-color: var(--color-orca-100);
+  border-radius: 4px;
+}
+#transaction-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-orca-300);
+  border-radius: 4px;
+}
+#transaction-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-orca-500);
+}
+
+
